@@ -1,0 +1,71 @@
+:root {
+  --ink: #c9c4ba;
+  --dim: #7e786d;
+  --rule: #2a2b30;
+  --warn: #c9873f;
+  --sim: #6f9bb5;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; padding: 0;
+  background: #0b0c0e;
+  color: var(--ink);
+  font-family: var(--vscode-font-family, ui-monospace, Menlo, monospace);
+  font-size: 11px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+#stage { flex: 1 1 auto; min-height: 0; position: relative; }
+#faucet { width: 100%; height: 100%; display: block; }
+
+#banner {
+  position: absolute; top: 6px; left: 6px; right: 6px;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 6px; border: 1px solid currentColor; text-align: center;
+  pointer-events: none; opacity: .92;
+}
+#banner[hidden] { display: none; }
+#banner.sim { color: var(--sim); }
+#banner.warn { color: var(--warn); }
+#banner.stale { color: var(--dim); }
+
+#readout {
+  flex: 0 0 auto;
+  border-top: 1px solid var(--rule);
+  padding: 7px 9px 9px;
+  background: #0d0e11;
+}
+.head { display: flex; align-items: baseline; gap: 6px; }
+#pct { font-size: 17px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+#pct.unknown { color: var(--dim); font-size: 13px; }
+#sub { color: var(--dim); font-size: 10px; }
+#est { color: var(--dim); font-size: 9px; margin-left: auto; letter-spacing: .06em; }
+
+#status { margin-top: 4px; display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--dim); }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); flex: 0 0 auto; }
+.dot.live { background: #5f9e6a; }
+.dot.stale { background: #b08a3c; }
+.dot.idle, .dot.none { background: #5a5a5f; }
+.dot.sim { background: var(--sim); }
+
+#toggle {
+  margin-top: 7px; width: 100%; text-align: left;
+  background: none; border: 1px solid var(--rule); color: var(--dim);
+  font: inherit; font-size: 9.5px; padding: 3px 6px; cursor: pointer;
+}
+#toggle:hover { color: var(--ink); border-color: #3a3b41; }
+
+#details { margin-top: 6px; display: none; }
+#details.open { display: block; }
+table { width: 100%; border-collapse: collapse; font-size: 10px; }
+td { padding: 1.5px 0; vertical-align: top; }
+td.k { color: var(--dim); white-space: nowrap; padding-right: 8px; }
+td.v { text-align: right; font-variant-numeric: tabular-nums; }
+td.v.na { color: #5a5a5f; font-style: italic; }
+.sec { color: var(--dim); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding-top: 7px; border-top: 1px solid var(--rule);
+  margin-top: 5px; }
+#notes { margin-top: 6px; color: #6d6861; font-size: 9px; line-height: 1.45; }
+#notes div { margin-top: 2px; }

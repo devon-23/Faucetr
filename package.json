@@ -1,0 +1,129 @@
+{
+  "name": "stillwell",
+  "displayName": "Stillwell",
+  "description": "An ambient pixel faucet that runs clear or murky with your Claude Code context usage.",
+  "version": "0.1.0",
+  "publisher": "devonnn",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "context",
+    "tokens",
+    "ambient"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "stillwell",
+          "title": "Stillwell",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "stillwell": [
+        {
+          "id": "stillwell.faucet",
+          "name": "Faucet",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "stillwell.openPanel",
+        "title": "Stillwell: Open Faucet Panel"
+      },
+      {
+        "command": "stillwell.focusView",
+        "title": "Stillwell: Show Faucet in Sidebar"
+      },
+      {
+        "command": "stillwell.toggleAnimation",
+        "title": "Stillwell: Pause / Resume Animation"
+      },
+      {
+        "command": "stillwell.simulate",
+        "title": "Stillwell: Simulate Context Usage…"
+      },
+      {
+        "command": "stillwell.exitSimulation",
+        "title": "Stillwell: Exit Simulation Mode"
+      },
+      {
+        "command": "stillwell.selectSession",
+        "title": "Stillwell: Select Claude Code Session…"
+      },
+      {
+        "command": "stillwell.diagnostics",
+        "title": "Stillwell: Show Tracking Diagnostics"
+      },
+      {
+        "command": "stillwell.resetStats",
+        "title": "Stillwell: Reset Local Statistics…"
+      }
+    ],
+    "configuration": {
+      "title": "Stillwell",
+      "properties": {
+        "stillwell.animation.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Animate the water. Disabling stops rendering but never stops data collection."
+        },
+        "stillwell.animation.respectReducedMotion": {
+          "type": "boolean",
+          "default": true,
+          "description": "Honour the system 'reduce motion' preference by calming the simulation."
+        },
+        "stillwell.staleAfterSeconds": {
+          "type": "number",
+          "default": 180,
+          "minimum": 15,
+          "description": "Mark usage data as stale after this many seconds without an update."
+        },
+        "stillwell.warnAtPercent": {
+          "type": "number",
+          "default": 85,
+          "minimum": 50,
+          "maximum": 99,
+          "description": "Context occupancy at which a discreet low-capacity warning appears."
+        },
+        "stillwell.transcriptRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Override the Claude Code projects directory. Empty means ~/.claude/projects."
+        },
+        "stillwell.contextWindowOverride": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Context window size in tokens, used only when no authoritative value is available. 0 means infer it (200k, or 1M once a prompt above 200k is observed). Any inferred value is labelled an estimate in the UI."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "typecheck": "tsc -p ./ --noEmit",
+    "vscode:prepublish": "npm run compile",
+    "test": "npm run compile && node test/collector.test.js && node test/capacity.test.js && node test/activation.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.7.2"
+  }
+}
